@@ -15,7 +15,7 @@ public class ReadUtilsTest {
         assertThat(content).isEqualTo("this is data");
     }
 
-/*    @Test
+    @Test
     public void shouldReadMultipleLines() {
         var filepath = "/utils/multilinefile.txt";
 
@@ -25,5 +25,5 @@ public class ReadUtilsTest {
                 this is
                 on
                 multiple lines""");
-    }*/
+    }
 }
