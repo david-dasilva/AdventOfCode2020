@@ -17,6 +17,7 @@ public class Day2 {
         var day2 = new Day2();
 
         System.out.println("Part 1 : " + day2.solvePart1(filename));
+        System.out.println("Part 2 : " + day2.solvePart2(filename));
 
     }
 
@@ -48,5 +49,28 @@ public class Day2 {
         return password.chars()
                 .filter(c -> c == letter)
                 .count();
+    }
+
+    public int solvePart2(String filename) {
+        List<String> lines = ReadUtils.asStringList(filename);
+        var validPasswords = 0;
+        for (String line : lines) {
+            Matcher matcher = PATTERN.matcher(line);
+
+            if (!matcher.find() || matcher.groupCount() < 4) {
+                throw new IllegalArgumentException("Line did not match pattern");
+            }
+
+            int firstPosition = Integer.parseInt(matcher.group(1)) - 1;
+            int secondPosition = Integer.parseInt(matcher.group(2)) - 1;
+            char letter = matcher.group(3).charAt(0);
+            String password = matcher.group(4);
+
+            // XOR : ^
+            if (password.charAt(firstPosition) == letter ^ password.charAt(secondPosition) == letter) {
+                validPasswords++;
+            }
+        }
+        return validPasswords;
     }
 }
