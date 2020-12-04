@@ -1,5 +1,4 @@
 package net.daviddasilva.adventofcode.day3;
-import net.daviddasilva.adventofcode.day2.Day2;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
