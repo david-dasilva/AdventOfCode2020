@@ -20,7 +20,7 @@ public class Day1 {
         Day1 day1 = new Day1("/day1/input.txt");
 
         logger.info("Part 1 Solution \t⭐\t\t{} ", day1.solvePart1());
-        logger.info("Part 1 Solution \t⭐⭐\t{}", day1.solvePart1());
+        logger.info("Part 2 Solution \t⭐⭐\t{}", day1.solvePart2());
     }
 
     public int solvePart1() {
