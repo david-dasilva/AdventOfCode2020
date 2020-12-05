@@ -86,7 +86,7 @@ public class Day4Test {
 
         @DisplayName("It should solve to validated solution")
         @Test
-        void shouldSolvePart1() {
+        void shouldSolvePart2() {
             var filename = "/day4/input.txt";
 
             var day4 = new Day4(filename);
