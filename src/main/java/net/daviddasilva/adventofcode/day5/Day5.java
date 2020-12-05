@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 public class Day5 {
     private static final Logger logger = LoggerFactory.getLogger(Day5.class);
@@ -34,16 +35,16 @@ public class Day5 {
     }
 
     public long solvePart2() {
-        List<Long> seatsId = data.stream()
+        List<Long> takenSeats = data.stream()
                 .map(this::getSeatId)
                 .sorted()
                 .collect(Collectors.toList());
 
-        return seatsId.stream()
-                .filter(seatId -> !(seatsId.contains(seatId + 1) && seatsId.contains(seatId - 1)))
-                .skip(1) // skip the first seat as instructed
+        var firstSeat = takenSeats.get(0);
+        var lastSeat = takenSeats.get(takenSeats.size() - 1);
+        return LongStream.range(firstSeat, lastSeat)
+                .filter(seatNumber -> !takenSeats.contains(seatNumber))
                 .findFirst()
-                .map(aLong -> ++aLong)
                 .orElseThrow();
     }
 
