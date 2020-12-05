@@ -1,16 +1,14 @@
 package net.daviddasilva.adventofcode.day5;
 
-import net.daviddasilva.adventofcode.day4.Day4;
 import net.daviddasilva.adventofcode.utils.ReadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Day5 {
-    private static final Logger logger = LoggerFactory.getLogger(Day4.class);
+    private static final Logger logger = LoggerFactory.getLogger(Day5.class);
 
     private final List<String> data;
 
