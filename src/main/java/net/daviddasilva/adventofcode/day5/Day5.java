@@ -58,9 +58,9 @@ public class Day5 {
     Seat getSeat(String input) {
 
         String binaryInput = input.replace('F', '0')
-                .replace('B', '1')
-                .replace('L', '0')
-                .replace('R', '1');
+                                  .replace('B', '1')
+                                  .replace('L', '0')
+                                  .replace('R', '1');
 
         var column = binaryInput.substring(0, 7);
         var row = binaryInput.substring(7, 10);
