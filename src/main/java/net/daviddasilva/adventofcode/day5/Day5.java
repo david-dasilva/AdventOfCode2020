@@ -30,41 +30,30 @@ public class Day5 {
     public long solvePart1() {
 
         return data.stream()
-                .map(this::getSeat)
-                .max(Comparator.comparing(Seat::getId))
-                .map(Seat::getId)
-                .orElse(0L);
+                .map(this::getSeatId)
+                .max(Long::compareTo)
+                .orElseThrow();
     }
 
     public long solvePart2() {
         List<Long> seatsId = data.stream()
-                .map(this::getSeat)
-                .map(Seat::getId)
+                .map(this::getSeatId)
                 .sorted()
                 .collect(Collectors.toList());
 
-        var previousSeatId = seatsId.get(0);
-        for (Long seat : seatsId) {
-            if (seat - previousSeatId > 1) {
-                return seat -1;
-            }
-            previousSeatId = seat;
-        }
-
-        throw new IllegalStateException("Should have found a missing seat");
+        return seatsId.stream()
+                .filter(seatId -> !(seatsId.contains(seatId + 1) && seatsId.contains(seatId - 1)))
+                .skip(1) // skip the first seat as instructed
+                .findFirst()
+                .map(aLong -> ++aLong)
+                .orElseThrow();
     }
 
-
-    Seat getSeat(String input) {
-
+    long getSeatId(String input) {
         String binaryInput = input.replace('F', '0')
-                                  .replace('B', '1')
-                                  .replace('L', '0')
-                                  .replace('R', '1');
-
-        var column = binaryInput.substring(0, 7);
-        var row = binaryInput.substring(7, 10);
-
-        return new Seat(Long.valueOf(column, 2), Long.valueOf(row, 2));
+                .replace('B', '1')
+                .replace('L', '0')
+                .replace('R', '1');
+        return Long.parseLong(binaryInput, 2);
     }
 }
