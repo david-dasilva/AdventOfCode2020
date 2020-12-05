@@ -19,7 +19,7 @@ public class Day5 {
         Day5 day5 = new Day5("/day5/input.txt");
 
         logger.info("Part 1 Solution \t⭐\t\t{} ", day5.solvePart1());
-//        logger.info("Part 2 Solution \t⭐⭐\t{}", day4.solvePart2()); // 139 too low
+        logger.info("Part 2 Solution \t⭐⭐\t{}", day5.solvePart2());
     }
 
     public Day5(String filename) {
@@ -35,6 +35,25 @@ public class Day5 {
                 .map(Seat::getId)
                 .orElse(0L);
     }
+
+    public long solvePart2() {
+        List<Long> seatsId = data.stream()
+                .map(this::getSeat)
+                .map(Seat::getId)
+                .sorted()
+                .collect(Collectors.toList());
+
+        var previousSeatId = seatsId.get(0);
+        for (Long seat : seatsId) {
+            if (seat - previousSeatId > 1) {
+                return seat -1;
+            }
+            previousSeatId = seat;
+        }
+
+        throw new IllegalStateException("Should have found a missing seat");
+    }
+
 
     Seat getSeat(String input) {
 

@@ -31,4 +31,18 @@ public class Day5Test {
             assertThat(day5.solvePart1()).isEqualTo(989);
         }
     }
+
+    @DisplayName("For part 2")
+    @Nested
+    class Part2 {
+
+        @DisplayName("It should solve to validated solution")
+        @Test
+        void shouldSolvePart2() {
+            var filename = "/day5/input.txt";
+            var day5 = new Day5(filename);
+
+            assertThat(day5.solvePart2()).isEqualTo(548);
+        }
+    }
 }
