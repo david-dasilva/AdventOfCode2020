@@ -5,8 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Day6 {
     private static final Logger logger = LoggerFactory.getLogger(Day6.class);
@@ -26,54 +26,45 @@ public class Day6 {
     }
 
     public long solvePart1() {
-        return countDistinctResponses().stream()
-                .reduce(0L, Long::sum);
+        return countDistinctResponses().reduce(0L, Long::sum);
     }
 
 
-    public long solvePart2() {
-        return countCommonResponses().stream()
-                .reduce(0L, Long::sum);
-    }
-
-    List<Long> countDistinctResponses() {
+    Stream<Long> countDistinctResponses() {
         return Arrays.stream(data.split("\\n\\n"))
                 .map(group -> group.replaceAll("[\n\r]", ""))
-                .map(Day6::countDistinctResponseForGroup)
-                .collect(Collectors.toList());
+                .map(Day6::countDistinctResponseForGroup);
     }
 
     static Long countDistinctResponseForGroup(String group) {
         return group.chars().distinct().count();
     }
 
-    List<Long> countCommonResponses() {
+    public long solvePart2() {
+        return countCommonResponses().reduce(0L, Long::sum);
+    }
+
+    Stream<Long> countCommonResponses() {
         return Arrays.stream(data.split("\\n\\n"))
-                .map(Day6::countCommonResponseForGroup)
-                .collect(Collectors.toList());
+                .map(Day6::countCommonResponseForGroup);
     }
 
     static long countCommonResponseForGroup(String group) {
-        var answers = group.lines()
-                .map(Day6::sortAnswer)
-                .collect(Collectors.toList());
-        var nbOfAnswers = answers.size();
-        if (nbOfAnswers == 1) {
-            return answers.get(0).length();
-        }
+        var answers = group.lines().collect(Collectors.toList());
 
-        String commonChars = answers.get(0);
+        String commonResponses = answers.get(0);
         for (int i = 1; i < answers.size(); i++) {
-            var commonAnswerWithPrevious = answers.get(i).replaceAll("[^" + answers.get(i-1) + "]", "");
-            if (!commonChars.isEmpty()) {
-                commonChars = commonAnswerWithPrevious.replaceAll("[^" + commonChars + "]", "");
-            }
+            var commonResponsesWithPrevious = getCommonResponses(answers.get(i), answers.get(i-1));
+            commonResponses = getCommonResponses(commonResponsesWithPrevious, commonResponses);
         }
 
-        return countDistinctResponseForGroup(commonChars);
+        return countDistinctResponseForGroup(commonResponses);
     }
 
-    static String sortAnswer(String answer) {
-        return answer.chars().sorted().collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString();
+    static String getCommonResponses(String answer1, String answer2) {
+        if (answer2.isEmpty()) { // Regex would fail with empty string
+            return "";
+        }
+        return answer1.replaceAll("[^" + answer2 + "]", "");
     }
 }

@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.Collectors;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -38,7 +40,7 @@ public class Day6Test {
 
             var filename = "/day6/example1.txt";
             var day6 = new Day6(filename);
-            var actual = day6.countDistinctResponses();
+            var actual = day6.countDistinctResponses().collect(Collectors.toList());
             assertThat(actual.size()).isEqualTo(5);
             assertThat(actual.get(0)).isEqualTo(3);
             assertThat(actual.get(1)).isEqualTo(3);
@@ -77,7 +79,7 @@ public class Day6Test {
         void shouldCountCommonResponsePerGroup() {
             var filename = "/day6/example1.txt";
             var day6 = new Day6(filename);
-            var actual = day6.countCommonResponses();
+            var actual = day6.countCommonResponses().collect(Collectors.toList());
             assertThat(actual.size()).isEqualTo(5);
             assertThat(actual.get(0)).isEqualTo(3);
             assertThat(actual.get(1)).isEqualTo(0);
