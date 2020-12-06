@@ -14,7 +14,7 @@ public class Day4 {
 
     private static final Logger logger = LoggerFactory.getLogger(Day4.class);
 
-    private final String data;
+    private final List<String> data;
 
 
     public static void main(String[] args) {
@@ -25,7 +25,7 @@ public class Day4 {
     }
 
     public Day4(String filename) {
-        this.data = ReadUtils.asString(filename);
+        this.data = ReadUtils.asGroupList(filename);
     }
 
     public long solvePart1() {
@@ -43,7 +43,7 @@ public class Day4 {
     }
 
     List<Passport> extractPassportEntries() {
-        return Arrays.stream(data.split("\\n\\n"))
+        return data.stream()
                 .map(Day4::buildPassport)
                 .collect(Collectors.toList());
     }

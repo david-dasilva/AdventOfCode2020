@@ -5,13 +5,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Day6 {
     private static final Logger logger = LoggerFactory.getLogger(Day6.class);
 
-    private final String data;
+    private final List<String> data;
 
     public static void main(String[] args) {
         Day6 day6 = new Day6("/day6/input.txt");
@@ -22,7 +23,7 @@ public class Day6 {
 
 
     public Day6(String filename) {
-        this.data = ReadUtils.asString(filename);
+        this.data = ReadUtils.asGroupList(filename);
     }
 
     public long solvePart1() {
@@ -31,7 +32,7 @@ public class Day6 {
 
 
     Stream<Long> countDistinctResponses() {
-        return Arrays.stream(data.split("\\n\\n"))
+        return data.stream()
                 .map(group -> group.replaceAll("[\n\r]", ""))
                 .map(Day6::countDistinctResponseForGroup);
     }
@@ -45,7 +46,7 @@ public class Day6 {
     }
 
     Stream<Long> countCommonResponses() {
-        return Arrays.stream(data.split("\\n\\n"))
+        return data.stream()
                 .map(Day6::countCommonResponseForGroup);
     }
 
